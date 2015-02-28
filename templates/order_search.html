@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+{% load poll_extras %}
+
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    -->
+
+    <title>订单查询</title>
+
+    {% include "include.html" %}
+
+    <style>
+        body {
+            min-height: 2000px;
+            padding-top: 70px;
+        }
+    </style>
+
+
+</head>
+
+<body style="background-color: rgb(225, 241, 225);">
+
+<!-- NAVBAR -->
+{% include "header.html" %}
+
+<div class="container">
+
+
+    <form role="form" action="/order_search/" method="get" id="form">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="输入您的订单号查询" name="sn" value="{{ sn }}" />
+        </div>
+        <input type="submit" class="btn" value="查询" />
+    </form>
+
+
+    <div>
+
+        {% if sn %}
+
+            {% if order %}
+
+                <table id="myTable" class="tablesorter" style="border: 1px">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>商品代码</th>
+                        <th>名称</th>
+                        <th>价格</th>
+                        <th>数量</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for b in order.boms %}
+                        <tr>
+                            <td><a href="/product/{{ b.product.id }}"><img src="{{ b.product.pic }}" width="50" height="50" /></a></td>
+                            <td>{{ b.product.sn }}</td>
+                            <td>{{ b.product.name }}</td>
+                            <td>{{ b.product.price }}</td>
+                            <td>{{ b.quantity }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <label>总金额:</label> ￥{{ order.total }}
+
+                <label>下单时间:</label> {{ order.time }}
+
+                <br/>
+
+                <label>当前订单状态:</label>
+                <label style="color:red">{{ order.status_name }}</label>
+
+                <br/>
+                <br/>
+
+                {% if order.status < 2 and order.status > 0 %}
+                    <a class="btn btn-warning" href="/urge?sn={{ order.sn }}" onclick="return confirm('要催促商品尽快发货吗？')">催促发货</a>
+                    <a class="btn btn-danger" href="/cancel?sn={{ order.sn }}" onclick="return confirm('确定要取消此订单吗？')">取消订单</a>
+                {% endif %}
+
+            {% else %}
+                <br/>
+                <br/>
+                <br/>
+                <label>没有此订单号的记录哦，请确认输入正确~</label>
+            {% endif %}
+        {% endif %}
+
+        {% if urge %}
+            <br/>
+            <br/>
+            <label>催单成功，我们将尽快安排发货和送货，谢谢~</label>
+        {% endif %}
+
+        <br/>
+        <br/>
+        <br/>
+        <label>我的订单：</label>
+        <ul>
+            {% for order_sn in orders %}
+                <li>
+                    <a href="/order_search?sn={{ order_sn }}">{{ order_sn }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+
+        <div style="clear: both"></div>
+
+    </div>
+
+
+
+
+
+
+    <!-- FOOTER -->
+    {% include "footer.html" %}
+
+</div><!--/.container-->
+
+
+<script>
+    $(function(){
+        $("#order_nav").addClass("active")
+    })
+</script>
+
+
+</body>
+</html>

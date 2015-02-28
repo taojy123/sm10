@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>十分钟超市</title>
+
+    <script type="text/javascript">
+        $(function(){
+            $("#admin_type").addClass("pure-menu-selected")
+        })
+    </script>
+</head>
+
+<body>
+
+
+<div class="pure-g-r" id="layout" style="letter-spacing:0">
+
+
+    {% include "menu.html" %}
+
+
+
+    <div id="right">
+
+        <div class="header">
+            <h1>分类管理</h1>
+        </div>
+
+        <div id="content" style="text-align: center;margin-top: 30px" >
+            <table id="myTable" class="tablesorter">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th>描述</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in rs %}
+                        <tr>
+                            <td>{{ r.id }}</td>
+                            <td>{{ r.name }}</td>
+                            <td>{{ r.info }}</td>
+                            <td>
+                                <a href="/del_type/?id={{ r.id }}" onclick="return confirm('确定要删除？')" class="pure-button">删除</a>
+                                <a style="cursor: pointer" onclick="$(this).next().toggle()" class="pure-button">修改</a>
+                                <form action="/update_type/" style="display: none" >
+                                    <input type="hidden" name="id" value="{{ r.id }}"  />
+                                    名称:
+                                    <input type="text" name="name" value="{{ r.name }}"  />
+                                    <br/>
+                                    描述:
+                                    <textarea name="info">{{ r.info }}</textarea>
+                                    <br/>
+                                    <input type="submit" />
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <button class="pure-button pure-button-primary" onclick="$(this).next().toggle()">创建新分类>></button>
+            <form action="/add_type" class="pure-form" style="display: none">
+                <br/>
+                名称:
+                <input type="text" name="name">
+                <br/>
+                描述:
+                <textarea name="info"></textarea>
+                <br/>
+                <input type="submit"  class="pure-button"/>
+            </form>
+
+        </div>
+
+        <div style="clear: both; height: 200px"/>
+
+    </div>
+
+
+</div>
+
+
+
+</body>
+
+</html>

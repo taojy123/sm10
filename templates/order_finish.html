@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+{% load poll_extras %}
+
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    -->
+
+    <title>提交成功</title>
+
+    {% include "include.html" %}
+
+    <style>
+        body {
+            min-height: 2000px;
+            padding-top: 70px;
+        }
+    </style>
+
+
+</head>
+
+<body style="background-color: rgb(225, 241, 225);">
+
+<!-- NAVBAR -->
+{% include "header.html" %}
+
+<div class="container">
+
+    <div class="jumbotron">
+
+        <label>恭喜您 订单提交成功~ 我们将尽快为您配送</label>
+        <br/>
+        <label>请记下您的订单号 <a href="/order_search?sn={{ order.sn }}">{{ order.sn }}</a> 方便查询</label>
+        <br/>
+
+    </div>
+
+
+
+
+    <!-- FOOTER -->
+    {% include "footer.html" %}
+
+</div><!--/.container-->
+
+
+<script>
+    $(function(){
+        $("#cart_nav").addClass("active")
+    })
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+﻿
+<div class="navbar navbar-default navbar-fixed-top" role="navigation" >
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/" style="font-weight:bold;">十分钟便利超市</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                {% for t in types %}
+                    <li id="type_{{ t.id }}"><a href="/type/{{ t.id }}">{{ t.name }}</a></li>
+                {% endfor %}
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li id="order_nav"><a href="/order_search">订单查询</a></li>
+                <li id="cart_nav"><a href="/cart">购物车</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+

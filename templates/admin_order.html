@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>十分钟超市</title>
+
+    <script type="text/javascript">
+        $(function(){
+            $("#admin_type").addClass("pure-menu-selected")
+        })
+    </script>
+</head>
+
+<body>
+
+
+<div class="pure-g-r" id="layout" style="letter-spacing:0">
+
+
+    {% include "menu.html" %}
+
+
+
+    <div id="right">
+
+        <div class="header">
+            <h1>订单管理</h1>
+        </div>
+
+        <div id="content" style="text-align: center;margin-top: 30px" >
+            <table id="myTable" class="tablesorter">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>订单号</th>
+                        <th>姓名</th>
+                        <th>地址</th>
+                        <th>电话</th>
+                        <th>邮箱</th>
+                        <th>总价</th>
+                        <th>下单时间</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in rs %}
+                        <tr>
+                            <td>{{ r.id }}</td>
+                            <td><a target="_blank" href="/order_search?sn={{ r.sn }}">{{ r.sn }}</a></td>
+                            <td>{{ r.name }}</td>
+                            <td>{{ r.address }}</td>
+                            <td>{{ r.phone }}</td>
+                            <td>{{ r.email }}</td>
+                            <td>{{ r.total }}</td>
+                            <td>{{ r.time }}</td>
+                            <td><a {% if r.urge %}style="color:red"{% endif %}>{{ r.status_name }}</a></td>
+                            <td>
+                                {% if r.next_step %}
+                                    <a href="/check_order/?id={{ r.id }}" onclick="return confirm('确定要{{ r.next_step }}？')" class="pure-button">{{ r.next_step }}</a>
+                                {% endif %}
+                                <a href="/del_order/?id={{ r.id }}" onclick="return confirm('确定要删除？')" class="pure-button">删除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+
+        </div>
+
+        <div style="clear: both; height: 200px"/>
+
+    </div>
+
+
+</div>
+
+
+
+</body>
+
+</html>

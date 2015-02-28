@@ -1,0 +1,9 @@
+---
+name: sm10
+version: 1
+
+libraries:
+- name: "django"
+  version: "1.4"
+- name: "numpy"
+  version: "1.6.1"

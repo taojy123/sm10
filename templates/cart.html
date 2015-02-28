@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+{% load poll_extras %}
+
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    -->
+
+    <title>我的购物车</title>
+
+    {% include "include.html" %}
+
+    <style>
+        body {
+            min-height: 2000px;
+            padding-top: 70px;
+        }
+    </style>
+
+
+</head>
+
+<body style="background-color: rgb(225, 241, 225);">
+
+<!-- NAVBAR -->
+{% include "header.html" %}
+
+<div class="container">
+
+    <div>
+
+        {% if rs %}
+
+            <table id="myTable" class="tablesorter" style="border: 1px">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>商品代码</th>
+                    <th>名称</th>
+                    <th>价格</th>
+                    <th>数量</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for r in rs %}
+                    <tr>
+                        <td><a href="/product/{{ r.0.id }}"><img src="{{ r.0.pic }}" width="50" height="50" /></a></td>
+                        <td>{{ r.0.sn }}</td>
+                        <td>{{ r.0.name }}</td>
+                        <td>{{ r.0.price }}</td>
+                        <td>{{ r.1 }}</td>
+                        <td><a href="/delcart/{{ r.0.id }}">移除</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <label>总金额:</label> ￥{{ total }}
+            <br/>
+            <br/>
+            <a class="btn btn-danger" href="/carttoorder" onclick="return confirm('确定购买购物车中的全部商品？')">结算</a>
+
+        {% else %}
+            <label>您的购物车是空的哦~ 先去<a href="/">超市</a>去逛逛</label>
+        {% endif %}
+
+
+        <div style="clear: both" />
+
+    </div>
+
+
+
+
+
+
+    <!-- FOOTER -->
+    {% include "footer.html" %}
+
+</div><!--/.container-->
+
+
+<script>
+    $(function(){
+        $("#cart_nav").addClass("active")
+    })
+</script>
+
+
+</body>
+</html>

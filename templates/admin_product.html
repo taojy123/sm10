@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>十分钟超市</title>
+    <script type="text/javascript">
+        $(function(){
+            $("#admin_type").addClass("pure-menu-selected")
+        })
+    </script>
+</head>
+
+<body>
+
+
+<div class="pure-g-r" id="layout" style="letter-spacing:0">
+
+
+    {% include "menu.html" %}
+
+
+
+    <div id="right">
+
+        <div class="header">
+            <h1>商品管理</h1>
+        </div>
+
+        <div id="content" style="text-align: center;margin-top: 30px" >
+            <table id="myTable" class="tablesorter">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>商品代码</th>
+                        <th>商品分类</th>
+                        <th>商品名称</th>
+                        <th>商品描述</th>
+                        <th>详细介绍</th>
+                        <th>商品价格</th>
+                        <th>商品图片</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in rs %}
+                        <tr>
+                            <td>{{ r.id }}</td>
+                            <td>{{ r.sn }}</td>
+                            <td>{{ r.type.name }}</td>
+                            <td>{{ r.name }}</td>
+                            <td>{{ r.info|linebreaksbr }}</td>
+                            <td>{{ r.details|linebreaksbr|slice:"30" }}...</td>
+                            <td>{{ r.price }}</td>
+                            <td><img src="{{ r.pic }}" style="height:100px; width:100px"/></td>
+                            <td>
+                                <a href="/del_product/?id={{ r.id }}" onclick="return confirm('确定要删除？')" class="pure-button">删除</a>
+                                <a style="cursor: pointer" onclick="$(this).next().toggle()" class="pure-button">修改</a>
+                                <form action="/update_product/" style="display: none"  enctype="multipart/form-data" method="post">
+                                    <input type="hidden" name="id" value="{{ r.id }}"  />
+                                    商品代码:
+                                    <input type="text" name="sn" value="{{ r.sn }}"  />
+                                    <br/>
+                                    商品分类:
+                                    <select name="type_id">
+                                        <option value="{{ r.type.id }}">{{ r.type.name }}</option>
+                                        {% for t in types %}
+                                            <option value="{{ t.id }}">{{ t.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <br/>
+                                    商品名称:
+                                    <input type="text" name="name" value="{{ r.name }}"  />
+                                    <br/>
+                                    商品描述:
+                                    <textarea name="info">{{ r.info }}</textarea>
+                                    <br/>
+                                    详细介绍:
+                                    <textarea name="details">{{ r.details }}</textarea>
+                                    <br/>
+                                    商品价格:
+                                    <input type="text" name="price" value="{{ r.price }}"  />
+                                    <br/>
+                                    商品图片:
+                                    <input type="file" name="pic" />
+                                    <br/>
+                                    <input type="submit" />
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <button class="pure-button pure-button-primary" onclick="$(this).next().toggle()">创建新商品>></button>
+            <form action="/add_product/" class="pure-form" style="display: none"  enctype="multipart/form-data" method="post">
+                商品代码:
+                <input type="text" name="sn"  />
+                <br/>
+                商品分类:
+                <select name="type_id">
+                    {% for t in types %}
+                        <option value="{{ t.id }}">{{ t.name }}</option>
+                    {% endfor %}
+                </select>
+                <br/>
+                商品名称:
+                <input type="text" name="name"   />
+                <br/>
+                商品描述:
+                <textarea name="info"></textarea>
+                <br/>
+                详细介绍:
+                <textarea name="details"></textarea>
+                <br/>
+                商品价格:
+                <input type="text" name="price"   />
+                <br/>
+                商品图片:
+                <input type="file" name="pic" />
+                <br/>
+                <input type="submit" class="pure-button"/>
+            </form>
+
+
+        </div>
+
+        <div style="clear: both; height: 200px"/>
+
+    </div>
+
+
+</div>
+
+
+
+</body>
+
+</html>

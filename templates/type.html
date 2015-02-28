@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+{% load poll_extras %}
+
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    -->
+
+    <title>{{ type.name }}</title>
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/offcanvas.css" rel="stylesheet">
+
+    {% include "include.html" %}
+
+</head>
+
+<body style="background-color: rgb(225, 241, 225);">
+
+<!-- NAVBAR -->
+{% include "header.html" %}
+
+<div class="container">
+
+    <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-9">
+
+            <div class="jumbotron">
+                <h1>
+                    {{ type.name }}
+                </h1>
+                <p>
+                    {{ type.info|linebreaksbr }}
+                </p>
+            </div>
+
+            <div class="row">
+                {% for p in pds %}
+                    <div class="col-xs-6" style="margin-top: 30px">
+                        <a href="/product/{{ p.id }}">
+                            <img style="float: left" src="{{ p.pic }}" width="130" height="130"/>
+                        </a>
+                        <div style="float: left; margin-left: 5px">
+                            <h4>
+                                {{ p.name }}
+                            </h4>
+                            <br/>
+                            <p><a class="btn btn-default" href="/product/{{ p.id }}" role="button">￥{{ p.price }} &raquo;</a></p>
+                        </div>
+                    </div><!--/span-->
+                {% endfor %}
+            </div><!--/row-->
+        </div><!--/span-->
+
+        <div class="col-xs-3 sidebar-offcanvas" id="sidebar" role="navigation">
+            <div class="list-group">
+                {% for t in types %}
+                    <a href="/type/{{ t.id }}" class="list-group-item {% ifequal t type %}active{% endifequal %}">{{ t.name }}</a>
+                {% endfor %}
+            </div>
+        </div><!--/span-->
+
+    </div><!--/row-->
+
+
+    <!-- FOOTER -->
+    {% include "footer.html" %}
+
+</div><!--/.container-->
+
+
+<script>
+    $(function(){
+        $("#type_{{ type.id }}").addClass("active")
+    })
+</script>
+
+</body>
+</html>

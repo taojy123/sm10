@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+{% load poll_extras %}
+
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    -->
+
+    <title>十分钟便利超市</title>
+    <meta name="description" content="超便捷的网络超市 比超市更全 比快递还快">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/carousel.css" rel="stylesheet">
+
+    {% include "include.html" %}
+
+</head>
+<body style="background-color: rgb(225, 241, 225);">
+
+<!-- NAVBAR -->
+{% include "header.html" %}
+
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 1040px; left: 50%; margin-left: -520px">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        {% for p in pd1 %}
+            <div class="item {% ifequal 1 forloop.counter %}active{% endifequal %}">
+                <img src="{{ p.pic }}" width="1300" height="500">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>
+                            {{ p.name }}
+                        </h1>
+                        <p>
+                            {{ p.info|linebreaksbr }}
+                        </p>
+                        <p><a class="btn btn-lg btn-primary" href="/product/{{ p.id }}" role="button">￥{{ p.price }}</a></p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+</div>
+
+
+
+<div class="container marketing">
+
+    {% for t in types %}
+        <h2 style="width: 100%; border-bottom: 2px solid #357ebd; border-left:2px solid #357ebd; ">
+            &nbsp;
+            <a style="color:#357ebd;" href="/type/{{ t.id }}">
+                {{ t.name }}
+                {% if forloop.counter == 1 %}
+                    （点击查看更多商品）
+                {% endif %}
+            </a>
+        </h2>
+        <div class="row">
+            {% for p in t.products %}
+                {% if forloop.counter < 9 %}
+                    <div class="col-xs-3" style="margin-bottom: 10px; height:360px">
+                        <a href="/product/{{ p.id }}">
+                            <img src="{{ p.pic }}" class="img-circle" width="140" height="140" >
+                        </a>
+                        <h3>
+                            {{ p.name }}
+                        </h3>
+                        <p>{{ p.info|linebreaksbr }}</p>
+                        <p><a class="btn btn-default" href="/product/{{ p.id }}" role="button">￥{{ p.price }} &raquo;</a></p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <!-- FOOTER -->
+    {% include "footer.html" %}
+
+</div>
+
+
+
+</body>
+</html>

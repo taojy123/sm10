@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+{% load poll_extras %}
+
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    -->
+
+    <title>{{ product.name }}</title>
+
+
+    <style>
+        body {
+            min-height: 2000px;
+            padding-top: 70px;
+        }
+    </style>
+
+    {% include "include.html" %}
+
+</head>
+
+<body style="background-color: rgb(225, 241, 225);">
+
+<!-- NAVBAR -->
+{% include "header.html" %}
+
+<div class="container">
+
+    <div class="jumbotron">
+
+        <div style="float: left">
+            <img src="{{ product.pic }}" width="400" height="400"  />
+        </div>
+
+        <div style="float: left; margin-left: 50px;width: 400px;height: 400px;">
+            <h2>{{ product.name }}</h2>
+            <h3>{{ product.info|linebreaksbr }}</h3>
+            <div style="margin-top: 100px">
+                <h4>￥{{ product.price }}</h4>
+                <select class="form-control" id="quantity" style="display: inline; width: 80px">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <button class="btn btn-primary" onclick="top.location='/addtocart/{{ product.id }}/'+$('#quantity').val()">加入购物车</button>
+                <button class="btn btn-danger" onclick="top.location='/addtoorder/{{ product.id }}/'+$('#quantity').val()">立即购买</button>
+            </div>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+
+    <div style="margin-top: 10px">
+        {{ product.details|linebreaksbr }}
+    </div>
+
+
+    <div style="margin-top: 100px">
+        <p>
+            <label>产品评论</label>
+        </p>
+
+        <dl class="dl-horizontal">
+            {% for c in comments %}
+                <p data-cid="{{ c.id }}">
+                    <dt style="color: #2778ca">{{ c.user }} :</dt>
+                    <dd>
+                        {{ c.content|linebreaksbr }}
+                        &nbsp;&nbsp;
+                        <a style="color: #adadad; font-size: 10px" title="{{ c.id }}">{{ c.friendly_time }}</a>
+                    </dd>
+                </p>
+            {% endfor %}
+        </dl>
+
+
+        <form role="form" action="/add_comment/" method="post" onsubmit="return confirm('确定要发表针对此商品的评论?')">
+            <input type="hidden" name="product_id" value="{{ product.id }}" />
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="请输入你的名字" name="name" value="{{ request.COOKIES.name }}" />
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" placeholder="请输入针对该商品的评论" name="content" style="height: 80px"></textarea>
+            </div>
+            <input type="submit" class="btn btn-primary" value="发表评论" />
+        </form>
+
+    </div>
+
+
+
+
+    <!-- FOOTER -->
+    {% include "footer.html" %}
+
+</div><!--/.container-->
+
+
+
+
+</body>
+</html>

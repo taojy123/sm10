@@ -1,0 +1,41 @@
+﻿
+<hr/>
+
+<footer>
+    <p class="pull-right"><a href="#">Back to top</a></p>
+    <p> 2014 Company, Inc.</p>
+</footer>
+
+
+
+<div class="right-col pin" >
+	<a style="cursor: pointer;position: absolute;top:3px;right:13px;z-index:100;" onclick="$(this).parent().hide()">×</a>
+	<div class="pinned note-container">
+		<div class="note">
+			<h3>0 元起送</h3>
+			营业时间：20:30-23:00
+			<br/>
+			其他下单方式：
+			<br/>
+			TEL 18817775378 15901711114
+			<br/>
+			QQ  231855844
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/static/js/jquery-1.9.0.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/static/js/jquery.tablesorter.js"></script>
+<script type="text/javascript">
+    $(function(){
+        //表格显示
+        $("#myTable").tablesorter({
+            widgets: ['zebra']
+        })
+    })
+</script>

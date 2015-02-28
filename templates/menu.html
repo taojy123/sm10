@@ -1,0 +1,39 @@
+﻿
+
+<link rel="stylesheet" href="/static/css/pure-min.css">
+<link rel="stylesheet" href="/static/css/baby-blue.css">
+<link rel="stylesheet" href="/static/css/tablesorter/blue/style.css" type="text/css" media="print, projection, screen" />
+<script type="text/javascript" src="/static/js/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.tablesorter.js"></script>
+<script type="text/javascript">
+    $(function(){
+        //表格显示
+        $("#myTable").tablesorter({
+            widgets: ['zebra']
+        })
+    })
+</script>
+
+<div class="pure-u" id="menu">
+    <div class="pure-menu pure-menu-open">
+        <a class="pure-menu-heading" href="/admin_order" >ADMIN</a>
+
+        <ul>
+
+            <li id="admin_order" >
+                <a href="/admin_order">订单管理</a>
+            </li>
+
+            <li id="admin_product" >
+                <a href="/admin_product">商品管理</a>
+            </li>
+
+            <li id="admin_type" >
+                <a href="/admin_type">分类管理</a>
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+
