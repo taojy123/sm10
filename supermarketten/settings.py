@@ -13,17 +13,27 @@ ADMINS = (
 MANAGERS = ADMINS
 
 if 'SERVER_SOFTWARE' in os.environ:
-    from sae.const import (
-        MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB
-        )
+    # from sae.const import (
+    #     MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB
+    #     )
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE':   'django.db.backends.mysql',
+    #         'NAME':     MYSQL_DB,
+    #         'USER':     MYSQL_USER,
+    #         'PASSWORD': MYSQL_PASS,
+    #         'HOST':     MYSQL_HOST,
+    #         'PORT':     MYSQL_PORT,
+    #         }
+    # }
     DATABASES = {
         'default': {
             'ENGINE':   'django.db.backends.mysql',
-            'NAME':     MYSQL_DB,
-            'USER':     MYSQL_USER,
-            'PASSWORD': MYSQL_PASS,
-            'HOST':     MYSQL_HOST,
-            'PORT':     MYSQL_PORT,
+            'NAME':     'sm10',
+            'USER':     'root',
+            'PASSWORD': 'root',
+            'HOST':     'taojy123.com',
+            'PORT':     3306,
             }
     }
 
@@ -39,16 +49,16 @@ else:
         }
     }
 
-    # DATABASES = {
-    #     'default': {
-    #         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-    #         'NAME': 'testdb',                      # Or path to database file if using sqlite3.
-    #         'USER': 'root',                      # Not used with sqlite3.
-    #         'PASSWORD': 'root',                  # Not used with sqlite3.
-    #         'HOST': '127.0.0.1',                      # Set to empty string for localhost. Not used with sqlite3.
-    #         'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
-    #     }
-    # }
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'testdb',                      # Or path to database file if using sqlite3.
+            'USER': 'root',                      # Not used with sqlite3.
+            'PASSWORD': 'root',                  # Not used with sqlite3.
+            'HOST': '127.0.0.1',                      # Set to empty string for localhost. Not used with sqlite3.
+            'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
+        }
+    }
 
 
 

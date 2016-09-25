@@ -92,7 +92,7 @@ def admin(request):
 def admin_login(request):
     rp = HttpResponseRedirect("/admin")
     password = request.REQUEST.get("password")
-    if password == "admin0987654321":
+    if password == "admin123456":
         rp.set_cookie("admin", "login")
     return rp
 
